@@ -65,18 +65,16 @@ class Generator:
         self.clip_seg_model = CLIPSegForImageSegmentation.from_pretrained("CIDAS/clipseg-rd64-refined")
 
         #LOAD LORAS
-        self.pipe.load_lora_weights("dsgnrai/lora", weight_name="more_details.safetensors", adapter_name="more_details")
-        self.pipe.load_lora_weights("dsgnrai/lora", weight_name="epi_noiseoffset2.safetensors", adapter_name="epi_noiseoffset2")
-        self.pipe.load_lora_weights("dsgnrai/lora", weight_name="color_temperature_slider_v1.safetensors", adapter_name="color_temperature_slider_v1")
-        self.pipe.load_lora_weights("dsgnrai/lora", weight_name="add_detail.safetensors", adapter_name="add_detail")
-        self.pipe.load_lora_weights("dsgnrai/lora", weight_name="FilmVelvia3.safetensors", adapter_name="FilmVelvia3")
-        self.pipe.load_lora_weights("dsgnrai/lora", weight_name="AARG_plan_V1.0.safetensors", adapter_name="AARG_plan_V1.0")
-        self.pipe.load_lora_weights("dsgnrai/lora", weight_name="mordeninterior.safetensors", adapter_name="mordeninterior")
+        self.pipe.load_lora_weights("usamaehsan/civit-ai-loras", weight_name="more_details.safetensors", adapter_name="more_details")
+        self.pipe.load_lora_weights("usamaehsan/civit-ai-loras", weight_name="epi_noiseoffset2.safetensors", adapter_name="epi_noiseoffset2")
+        self.pipe.load_lora_weights("usamaehsan/civit-ai-loras", weight_name="color_temperature_slider_v1.safetensors", adapter_name="color_temperature_slider_v1")
+        self.pipe.load_lora_weights("usamaehsan/civit-ai-loras", weight_name="add_detail.safetensors", adapter_name="add_detail")
+        self.pipe.load_lora_weights("usamaehsan/civit-ai-loras", weight_name="FilmVelvia3.safetensors", adapter_name="FilmVelvia3")
 
         #load textual inversions
-        self.pipe.load_textual_inversion("dsgnrai/negative-embeddings", weight_name="FastNegativeV2.pt", token="FastNegativeV2")
-        self.pipe.load_textual_inversion("dsgnrai/negative-embeddings", weight_name="boring_e621_v4.pt", token="boring_e621_v4")
-        self.pipe.load_textual_inversion("dsgnrai/negative-embeddings", weight_name="verybadimagenegative_v1.3.pt", token="verybadimagenegative_v1")
+        self.pipe.load_textual_inversion("usamaehsan/civit-ai-negative-embeddings", weight_name="FastNegativeV2.pt", token="FastNegativeV2")
+        self.pipe.load_textual_inversion("usamaehsan/civit-ai-negative-embeddings", weight_name="boring_e621_v4.pt", token="boring_e621_v4")
+        self.pipe.load_textual_inversion("usamaehsan/civit-ai-negative-embeddings", weight_name="verybadimagenegative_v1.3.pt", token="verybadimagenegative_v1")
 
         self.pipe.to("cuda", torch.float16)
 
@@ -298,7 +296,7 @@ class Generator:
 
                 add_more_detail_lora_scale= 0, detail_tweaker_lora_weight= 0, film_grain_lora_weight= 0, 
                 epi_noise_offset_lora_weight=0, color_temprature_slider_lora_weight=0,
-                mp_lora_weight=0, id_lora_weight=0,
+                # hd_helper_lora_weight=0,
 
                 ):
         
@@ -319,12 +317,6 @@ class Generator:
         if color_temprature_slider_lora_weight!=0:
             lora_weights.append(color_temprature_slider_lora_weight)
             loras.append("color_temperature_slider_v1")
-        if mp_lora_weight!=0:
-            lora_weights.append(mp_lora_weight)
-            loras.append("AARG_plan_V1.0")
-        if id_lora_weight!=0:
-            lora_weights.append(id_lora_weight)
-            loras.append("mordeninterior")
         # if hd_helper_lora_weight!=0:
         #     lora_weights.append(hd_helper_lora_weight)
         #     loras.append("hd_helper_v1")
