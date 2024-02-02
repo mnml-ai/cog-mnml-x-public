@@ -70,6 +70,7 @@ class Generator:
         self.pipe.load_lora_weights("dsgnrai/lora", weight_name="color_temperature_slider_v1.safetensors", adapter_name="color_temperature_slider_v1")
         self.pipe.load_lora_weights("dsgnrai/lora", weight_name="add_detail.safetensors", adapter_name="add_detail")
         self.pipe.load_lora_weights("dsgnrai/lora", weight_name="FilmVelvia3.safetensors", adapter_name="FilmVelvia3")
+        self.pipe.load_lora_weights("dsgnrai/lora", weight_name="mp_v1.safetensors", adapter_name="mp_v1")
 
         #load textual inversions
         self.pipe.load_textual_inversion("dsgnrai/negative-embeddings", weight_name="FastNegativeV2.pt", token="FastNegativeV2")
@@ -296,7 +297,7 @@ class Generator:
 
                 add_more_detail_lora_scale= 0, detail_tweaker_lora_weight= 0, film_grain_lora_weight= 0, 
                 epi_noise_offset_lora_weight=0, color_temprature_slider_lora_weight=0,
-                # hd_helper_lora_weight=0,
+                mp_lora_weight=0,
 
                 ):
         
@@ -317,9 +318,9 @@ class Generator:
         if color_temprature_slider_lora_weight!=0:
             lora_weights.append(color_temprature_slider_lora_weight)
             loras.append("color_temperature_slider_v1")
-        # if hd_helper_lora_weight!=0:
-        #     lora_weights.append(hd_helper_lora_weight)
-        #     loras.append("hd_helper_v1")
+        if mp_lora_weight!=0:
+            lora_weights.append(mp_lora_weight)
+            loras.append("mp_v1")
 
         t1= time.time()
         self.ip_weight= f"weights/{ip_ckpt}"
