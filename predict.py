@@ -262,10 +262,10 @@ class Predictor(BasePredictor):
             description="disabled on 0", default=0,
         ),
         mp_lora_weight: float = Input(
-            description="Scale/ weight of more_details lora, more scale = more details, disabled on 0", default=0.5,
+            description="disabled on 0", default=0,
         ),
         id_lora_weight: float = Input(
-            description="Scale/ weight of more_details lora, more scale = more details, disabled on 0", default=0.5,
+            description="disabled on 0", default=0,
         ),
         # hd_helper_lora_weight: float = Input(
         #     description="disabled on 0", default=0.5,
