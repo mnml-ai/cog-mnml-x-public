@@ -262,8 +262,12 @@ class Predictor(BasePredictor):
             description="disabled on 0", default=0,
         ),
         mp_lora_weight: float = Input(
-            description="disabled on 0", default=0.5,
+            description="disabled on 0", default=0,
         ),
+        id_lora_weight: float = Input(
+            description="disabled on 0", default=0,
+        ),
+
     ) -> List[Path]:
         outputs= self.gen.predict(
                 prompt=prompt,
@@ -286,7 +290,7 @@ class Predictor(BasePredictor):
 
                 add_more_detail_lora_scale= add_more_detail_lora_scale, detail_tweaker_lora_weight= detail_tweaker_lora_weight, film_grain_lora_weight= film_grain_lora_weight, 
                 epi_noise_offset_lora_weight=epi_noise_offset_lora_weight, color_temprature_slider_lora_weight=color_temprature_slider_lora_weight, 
-                mp_lora_weight=mp_lora_weight,
+                mp_lora_weight=mp_lora_weight, id_lora_weight=id_lora_weight,
             )
 
         output_paths= []
