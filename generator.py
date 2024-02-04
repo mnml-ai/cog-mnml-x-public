@@ -186,9 +186,9 @@ class Generator:
                 img= AUX_IDS[name]["preprocessor"](self, image)
                 img= img.resize((w,h))
 
-                control_nets.append(self.controlnets[name])
-                processed_control_images.append(img)
-                conditioning_scales.append(conditioning_scale)
+            control_nets.append(self.controlnets[name])
+            processed_control_images.append(img)
+            conditioning_scales.append(conditioning_scale)
 
         if img2img:
             print('image 2 image', img2img)
@@ -226,7 +226,7 @@ class Generator:
                     ip = IPAdapter(pipe, self.ip_weight, self.image_encoder, device="cuda")
                 kwargs = {
                     "image": init_image,
-                    "mask_image": inpaint_img,
+                    "mask_image": mask,
                     "control_image": processed_control_images,
                     "controlnet_conditioning_scale": conditioning_scales,
                     "guess_mode": guess_mode,
