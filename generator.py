@@ -72,6 +72,7 @@ class Generator:
         self.pipe.load_lora_weights("dsgnrai/lora", weight_name="FilmVelvia3.safetensors", adapter_name="FilmVelvia3")
         self.pipe.load_lora_weights("dsgnrai/lora", weight_name="mp_v1.safetensors", adapter_name="mp_v1")
         self.pipe.load_lora_weights("dsgnrai/lora", weight_name="id_v1.safetensors", adapter_name="id_v1")
+        self.pipe.load_lora_weights("dsgnrai/lora", weight_name="adiff_v1.safetensors", adapter_name="adiff_v1")
 
         #load textual inversions
         self.pipe.load_textual_inversion("dsgnrai/negative-embeddings", weight_name="FastNegativeV2.pt", token="FastNegativeV2")
@@ -298,7 +299,7 @@ class Generator:
 
                 add_more_detail_lora_scale= 0, detail_tweaker_lora_weight= 0, film_grain_lora_weight= 0, 
                 epi_noise_offset_lora_weight=0, color_temprature_slider_lora_weight=0,
-                mp_lora_weight=0, id_lora_weight=0,
+                mp_lora_weight=0, id_lora_weight=0, adiff_lora_weight=0,
 
                 ):
         
@@ -325,6 +326,9 @@ class Generator:
         if id_lora_weight!=0:
             lora_weights.append(id_lora_weight)
             loras.append("id_v1")
+        if adiff_lora_weight!=0:
+            lora_weights.append(adiff_lora_weight)
+            loras.append("adiff_v1")
 
         t1= time.time()
         self.ip_weight= f"weights/{ip_ckpt}"
