@@ -95,7 +95,7 @@ def sort_dict_by_string(input_string, your_dict):
 
 
 AUX_IDS = {
-    "depth": "fusing/stable-diffusion-v1-5-controlnet-depth",
+    #"depth": "fusing/stable-diffusion-v1-5-controlnet-depth",
     "scribble": "fusing/stable-diffusion-v1-5-controlnet-scribble",
     'lineart': "ControlNet-1-1-preview/control_v11p_sd15_lineart",
     'tile': "lllyasviel/control_v11f1e_sd15_tile",
@@ -139,8 +139,8 @@ class Predictor(BasePredictor):
         self,
         prompt: str = Input(description="Prompt - using compel, use +++ to increase words weight:: doc: https://github.com/damian0815/compel/tree/main/doc || https://invoke-ai.github.io/InvokeAI/features/PROMPTS/#attention-weighting",),
         negative_prompt: str = Input(
-            description="Negative prompt - using compel, use +++ to increase words weight//// negative-embeddings available ///// FastNegativeV2 , boring_e621_v4 , verybadimagenegative_v1 || to use them, write their keyword in negative prompt",
-            default="Longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality",
+            description="Negative prompt - using compel, use +++ to increase words weight",
+            default="(worst quality, low quality, normal quality:2)",
         ),
         num_inference_steps: int = Input(description="Steps to run denoising", default=20),
         guidance_scale: float = Input(
