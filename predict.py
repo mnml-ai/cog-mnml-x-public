@@ -95,7 +95,7 @@ def sort_dict_by_string(input_string, your_dict):
 
 
 AUX_IDS = {
-    #"depth": "fusing/stable-diffusion-v1-5-controlnet-depth",
+    # "depth": "fusing/stable-diffusion-v1-5-controlnet-depth",
     "scribble": "fusing/stable-diffusion-v1-5-controlnet-scribble",
     'lineart': "ControlNet-1-1-preview/control_v11p_sd15_lineart",
     'tile': "lllyasviel/control_v11f1e_sd15_tile",
@@ -130,7 +130,7 @@ class Predictor(BasePredictor):
         self.gen = Generator(
             sd_path= "SG161222/Realistic_Vision_V6.0_B1_noVAE",
             vae_path= "stabilityai/sd-vae-ft-mse", use_compel=True,
-            load_controlnets={"lineart","mlsd", "canny", "depth", "tile", "inpainting"},
+            load_controlnets={"lineart","mlsd", "canny", "depth", "inpainting"},
             load_ip_adapter=True
         )
 
@@ -139,8 +139,8 @@ class Predictor(BasePredictor):
         self,
         prompt: str = Input(description="Prompt - using compel, use +++ to increase words weight:: doc: https://github.com/damian0815/compel/tree/main/doc || https://invoke-ai.github.io/InvokeAI/features/PROMPTS/#attention-weighting",),
         negative_prompt: str = Input(
-            description="Negative prompt - using compel, use +++ to increase words weight",
-            default="(worst quality, low quality, normal quality:2)",
+            description="Negative prompt - using compel, use +++ to increase words weight//// negative-embeddings available ///// FastNegativeV2 , boring_e621_v4 , verybadimagenegative_v1, JuggernautNegative-neg || to use them, write their keyword in negative prompt",
+            default="Longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality",
         ),
         num_inference_steps: int = Input(description="Steps to run denoising", default=20),
         guidance_scale: float = Input(
@@ -212,13 +212,6 @@ class Predictor(BasePredictor):
             description="Conditioning scale for mlsd controlnet",
             default=1,
         ),
-        tile_image: Path = Input(
-            description="Control image for mlsd controlnet", default=None
-        ),
-        tile_conditioning_scale: float = Input(
-            description="Conditioning scale for mlsd controlnet",
-            default=1,
-        ),
         inpainting_image: Path = Input(
             description="Control image for inpainting controlnet", default=None
         ),
@@ -236,7 +229,7 @@ class Predictor(BasePredictor):
             default=1,
         ),
         sorted_controlnets: str = Input(
-            description="Comma seperated string of controlnet names", default="lineart"
+            description="Comma seperated string of controlnet names, list of names: tile, inpainting, lineart,depth ,scribble , brightness /// example value: tile, inpainting, lineart ", default="tile, inpainting, lineart"
         ),
         ip_adapter_ckpt: str = Input(
             description="IP Adapter checkpoint", default="ip-adapter_sd15.bin", choices=["ip-adapter_sd15.bin", "ip-adapter-plus_sd15.bin", "ip-adapter-plus-face_sd15.bin"]
@@ -288,7 +281,6 @@ class Predictor(BasePredictor):
                 depth_conditioning_scale= depth_conditioning_scale, depth_image= depth_image,
                 mlsd_image= mlsd_image, mlsd_conditioning_scale=mlsd_conditioning_scale,
                 canny_conditioning_scale= canny_conditioning_scale, canny_image= canny_image,
-                tile_image= tile_image, tile_conditioning_scale=tile_conditioning_scale,
 
                 inpainting_image=inpainting_image, mask_image=mask_image, inpainting_conditioning_scale=inpainting_conditioning_scale,
                 num_outputs=num_outputs, max_width=max_width, max_height=max_height,

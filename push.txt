@@ -13,4 +13,4 @@ sudo cog login
 
 sudo python3 script/download_weights
 
-sudo cog push r8.im/bytesavant0/sd-node-x
+sudo cog push r8.im/bytesavant0/sd-node-v2
