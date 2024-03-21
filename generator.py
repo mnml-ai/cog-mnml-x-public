@@ -73,6 +73,8 @@ class Generator:
         self.pipe.load_lora_weights("dsgnrai/lora", weight_name="mp_v1.safetensors", adapter_name="mp_v1")
         self.pipe.load_lora_weights("dsgnrai/lora", weight_name="id_v1.safetensors", adapter_name="id_v1")
         self.pipe.load_lora_weights("dsgnrai/lora", weight_name="ex_v1.safetensors", adapter_name="ex_v1")
+        self.pipe.load_lora_weights("dsgnrai/lora", weight_name="SDXLrender_v2.0.safetensors", adapter_name="SDXLrender_v2")
+
 
         #load textual inversions
         self.pipe.load_textual_inversion("dsgnrai/negative-embeddings", weight_name="FastNegativeV2.pt", token="FastNegativeV2")
@@ -287,19 +289,19 @@ class Generator:
                 mlsd_image= None, mlsd_conditioning_scale=1.0,
                 canny_conditioning_scale= 1.0, canny_image= None,
                 
-                num_outputs=1, max_width=512, max_height=512,
-                scheduler="DDIM", num_inference_steps=20, guidance_scale=7.0,
+                num_outputs=1, max_width=1024, max_height=1024,
+                scheduler="DDIM", num_inference_steps=28, guidance_scale=7.0,
                 seed=None, eta=0.0,
-                negative_prompt="Longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality",
+                negative_prompt="(worst quality, low quality, normal quality:2)",
                 guess_mode=False, disable_safety_check=False,
-                sorted_controlnets="tile, inpainting, lineart",
+                sorted_controlnets="lineart",
                 ip_adapter_image=None, ip_adapter_weight=1.0,
                 img2img=None, img2img_strength= 0.8, ip_ckpt='"ip-adapter_sd15.bin"',
                 text_for_auto_mask=None, negative_text_for_auto_mask= None,
 
                 add_more_detail_lora_scale= 0, detail_tweaker_lora_weight= 0, film_grain_lora_weight= 0, 
                 epi_noise_offset_lora_weight=0, color_temprature_slider_lora_weight=0,
-                mp_lora_weight=0, id_lora_weight=0, ex_v1_lora_weight=0,
+                mp_lora_weight=0, id_lora_weight=0, ex_v1_lora_weight=0, SDXLrender_v2_lora_weight=0,
 
                 ):
         
@@ -329,6 +331,9 @@ class Generator:
         if ex_v1_lora_weight!=0:
             lora_weights.append(ex_v1_lora_weight)
             loras.append("ex_v1")
+        if SDXLrender_v2_lora_weight!=0:
+            lora_weights.append(SDXLrender_v2_lora_weight)
+            loras.append("SDXLrender_v2")
 
         t1= time.time()
         self.ip_weight= f"weights/{ip_ckpt}"
