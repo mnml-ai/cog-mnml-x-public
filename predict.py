@@ -161,10 +161,6 @@ class Predictor(BasePredictor):
         disable_safety_check: bool = Input(
             description="Disable safety check. Use at your own risk!", default=False
         ),
-        is_private: bool = Input(
-            description="Privacy", default=False
-        ),
-
         num_outputs: int = Input(
             description="Number of images to generate",
             ge=1,
@@ -277,7 +273,6 @@ class Predictor(BasePredictor):
         SDXLrender_v2_lora_weight: float = Input(
             description="disabled on 0", default=0,
         ),
-    
 
     ) -> List[Path]:
         outputs= self.gen.predict(
@@ -292,7 +287,7 @@ class Predictor(BasePredictor):
                 scheduler=scheduler, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale,
                 seed=seed, eta=eta,
                 negative_prompt=negative_prompt,
-                guess_mode=guess_mode, disable_safety_check=disable_safety_check, is_private=is_private,
+                guess_mode=guess_mode, disable_safety_check=disable_safety_check,
                 sorted_controlnets=sorted_controlnets,
                 ip_adapter_image=ip_adapter_image, ip_adapter_weight=ip_adapter_weight,
                 img2img=img2img_image, img2img_strength= img2img_strength, ip_ckpt=ip_adapter_ckpt,

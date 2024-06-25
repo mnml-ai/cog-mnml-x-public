@@ -39,7 +39,6 @@ class Generator:
 
         self.pipe = StableDiffusionPipeline.from_pretrained(
             sd_path, torch_dtype=torch.float16,
-            #use_safetensors=True,
             # local_files_only=True,
             vae= vae if vae_path else None
         )
@@ -293,10 +292,9 @@ class Generator:
                 num_outputs=1, max_width=512, max_height=512,
                 scheduler="DDIM", num_inference_steps=20, guidance_scale=7.0,
                 seed=None, eta=0.0,
-                negative_prompt="worst quality, low quality",
+                negative_prompt="Longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality",
                 guess_mode=False, disable_safety_check=False,
-                is_private=False,
-                sorted_controlnets="lineart",
+                sorted_controlnets="tile, inpainting, lineart",
                 ip_adapter_image=None, ip_adapter_weight=1.0,
                 img2img=None, img2img_strength= 0.8, ip_ckpt='"ip-adapter_sd15.bin"',
                 text_for_auto_mask=None, negative_text_for_auto_mask= None,
