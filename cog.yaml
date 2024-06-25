@@ -2,7 +2,7 @@ build:
   gpu: true
   system_packages:
     - "python3-opencv"
-  cuda: "11.6"
+  cuda: "11.7"
   python_version: "3.9"
   python_packages:
     - "diffusers"
